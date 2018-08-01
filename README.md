@@ -1,7 +1,7 @@
 # upgraded-octo-discocito-8
 Personal Emotional Assistant: nice, understanding, trustworthy, sincere (PEAnuts)
 
-# relatable memes!!! made with 100% artificial intelligence 
+# relatable memes!!! made with 100% all natural, home grown, grass fed, free range, vegan, organic, farm-to-table artificial intelligence 
 
 *slaps roof of software*
 This software can fit so many depression in it
