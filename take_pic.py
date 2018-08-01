@@ -6,6 +6,7 @@ import time
 import unidecode
 import json
 import random
+import numpy as np
 
 app = Flask(__name__)
 ask = Ask(app, '/')
@@ -21,8 +22,11 @@ def camera_to_image_array():
         Returns
         -------
         The picture as an image array. """    
-    
-    return setImage(take_picture())
+    img = take_picture()
+    img = img.copy(order='C')
+    img = np.array_str(img)
+    #img = img.encode()
+    return statement(img)
 
 @ask.intent("NoIntent")
 def no_intent():
