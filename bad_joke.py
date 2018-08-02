@@ -39,7 +39,7 @@ def normalize(counter):
 
     total = sum(counter.values())
     return [(char, cnt/total) for char, cnt in counter.most_common()]
-
+    
 def train_lm(text, n):
     """ Trains a character-based n-gram language model.
         
@@ -56,16 +56,16 @@ def train_lm(text, n):
         describes the probability of each following character. """
     
     raw_lm = defaultdict(Counter)
-    # no padding characters so that generated text starts with different letter combinations
-    history = text[:n - 1]
+    # padding
+    history = "~" * (n - 1)
     
-    for char in text[n - 1:]:
+    for char in text:
         raw_lm[history][char] += 1
         history = history[1:] + char
     
     lm = {history : normalize(counter) for history, counter in raw_lm.items()}
     return lm
-    
+        
 def generate_letter(lm, history):
     """ Randomly generates a letter according to the probability 
     distribution associated with the specified history.
@@ -81,17 +81,26 @@ def generate_letter(lm, history):
         
         Returns
         -------
-        The predicted character. """
+        A tuple containing the predicted character and the history. """
     
     if not history in lm:
-        # returns a random letter
-        return chr(np.random.randint(97, 97 + 26))
+        if history[-1] == '\n':
+            return ('A', history)
+        elif history[-1] == 'A':
+            return (':', history)
+        elif history[-1] == ':':
+            return (' ', history)
+        else:
+        	# forcibly change history
+            A_list = [hist for hist in lm.keys() if hist.endswith('\nA: ')]
+            A_i = np.random.randint(len(A_list))
+            history = A_list[A_i]
     letters, probs = tuple(zip(*lm[history]))
     i = np.random.choice(letters, p=probs)
-    return i
-    
-def generate_phrase(lm, n, total_words = 1):
-    """ Randomly generates a phrase by drawing from the probability 
+    return (i, history)
+        
+def generate_text(lm, n, nletters = 200):
+    """ Randomly generates text by drawing from the probability 
     distributions stored in the n-gram language model.
     
         Parameters
@@ -102,57 +111,41 @@ def generate_phrase(lm, n, total_words = 1):
         n: int
             order of n-gram model.
             
-        total_words : int
-            the number of words to be generated
+        nletters: int
+            number of letters to randomly generate.
         
         Returns
         -------
-        Model-generated phrase. """
+        Model-generated text. """
     
-    # chooses a random word to start with as history
-    word_start_hist = [hist for hist in lm.keys() if hist.startswith(' ')]
-    i = np.random.randint(len(word_start_hist))
-    history = word_start_hist[i]
-    
+    history = '~' * (n - 1)
     text = []
-    text.extend(history[1:])
-    
-    spaces = 0
-    
-    while True:
-        c = generate_letter(lm, history)
-        # counts number of words
-        if c == ' ':
-            spaces += 1
-            if spaces == total_words:
-                break
+    finished = False
+    for i in range(nletters):
+        # keeps joke in Q&A format
+        if history[-1] == '\n':
+            c = 'A'
+            finished = True
+        else:
+            c, history = generate_letter(lm, history)
+        if finished and c == '\n':
+            break
         text.append(c)
         history = history[1:] + c
-        
     return "".join(text)
-
-@ask.intent("AMAZON.YesIntent")
-def n_gram_jokes():
-    """ Generates a really funny joke based on a text file of words.
-                                    
-        Returns
-        -------
-        A really funny joke. """
     
-    with open("lm_noun.pkl", mode="rb") as f:
-        lm_noun = pickle.load(f)
-        
-    with open("lm_verb.pkl", mode="rb") as f:
-        lm_verb = pickle.load(f)
-        
-    n = 5
-    jokes = ["Knock knock. \nWho's there? \n{0}. \n{0} who? \n{0} {1}.".format(generate_phrase(lm_noun, n, np.random.randint(1, 3)).capitalize(), generate_phrase(lm_noun, n, np.random.randint(1, 3))),                
-             "Why did the {} {} the {}? \nTo {} {}!".format(generate_phrase(lm_noun, n, np.random.randint(1, 3)), generate_phrase(lm_verb, n), generate_phrase(lm_noun, n, np.random.randint(1, 3)), generate_phrase(lm_verb, n), generate_phrase(lm_noun, n, np.random.randint(1, 3))),
-             "*slaps roof of {0}*. \nThis {0} can fit so much {1} in it.".format(generate_phrase(lm_noun, n), generate_phrase(lm_noun, n)),
-             "Thank you {} very {}.".format(generate_phrase(lm_noun, n, np.random.randint(1, 3)), generate_phrase(lm_noun, n, np.random.randint(1, 3)))]    
-    i = np.random.randint(len(jokes))    
-    return statement(jokes[i])
-    	
+@ask.intent("AMAZON.YesIntent")
+def gen_joke(n):
+    with open("lm_jokes.pkl", mode="rb") as f:
+        lm_jokes = pickle.load(f)
+    
+    joke = generate_text(lm_jokes, 8)
+    joke = joke.replace('Q: ', '')
+    joke = joke.replace('A: ', '<break time="0.5s"/>')
+    joke = "<speak>" + joke + "</speak>"
+
+    return statement(joke)
+            	
 @ask.intent('AMAZON.CancelIntent')
 @ask.intent('AMAZON.StopIntent')
 @ask.intent('AMAZON.NoIntent')
