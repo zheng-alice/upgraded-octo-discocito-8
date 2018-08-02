@@ -1,0 +1,80 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "meditate",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "YesIntent",
+                    "slots": [],
+                    "samples": [
+                        "sí señor",
+                        "yah",
+                        "yeah",
+                        "yes"
+                    ]
+                },
+                {
+                    "name": "NoIntent",
+                    "slots": [],
+                    "samples": [
+                        "nah",
+                        "nope",
+                        "no"
+                    ]
+                },
+                {
+                    "name": "AMAZON.PauseIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ResumeIntent",
+                    "samples": []
+                }
+            ],
+            "type": "AudioPlayer.Play",
+  "playBehavior": "valid playBehavior value such as ENQUEUE",
+  "audioItem": {
+    "stream": {
+      "url": "https://url-of-the-stream-to-play",
+      "token": "opaque token representing this stream",
+      "expectedPreviousToken": "opaque token representing the previous stream",
+      "offsetInMilliseconds": 0
+    },
+    "metadata": {
+      "title": "title of the track to display",
+      "subtitle": "subtitle of the track to display",
+      "art": {
+        "sources": [
+          {
+            "url": "https://url-of-the-album-art-image.png"
+          }
+        ]
+      },
+      "backgroundImage": {
+        "sources": [
+          {
+            "url": "https://url-of-the-background-image.png"
+          }
+        ]
+      }
+    }
+  }
+        }
+    }
+}
