@@ -158,7 +158,7 @@ def generate_meme():
     pronouns = ["him", "her"]
     
     jokes = ["*slaps roof of {0}*. \nThis {0} can fit so much {1} {2} in it.".format(rand(nouns), rand(adjs), rand(nouns)),
-             "Thank you {} very {}.".format(rand(nouns), rand(adjs)),
+             "Thank you {} very {}.".format(rand(names), rand(adjs)),
              "This is so {} Alexa play {}.".format(rand(adjs), choose(rand(nouns).capitalize(), rand(adjs).capitalize(), rand(verbs).capitalize(), rand(adjs).capitalize() + ' ' + rand(nouns).capitalize())),
              "Dad, why is my sister's name {0} {1}? \nBecause your mother loves {0} {1}. \nThanks Dad. \nNo problem {2}.".format(rand(adjs).capitalize(), rand(nouns).capitalize(), rand(nouns).capitalize()),
              "{} announces {} {}. \n{} rate drops to 0%.".format(choose(rand(nouns).capitalize(), rand(names)), rand(nouns).capitalize(), str(np.random.randint(1, 11)), rand(nouns).capitalize()),

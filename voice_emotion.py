@@ -53,7 +53,8 @@ def record_voice():
 
 	intro = intro1[np.random.randint(len(intro1))] + intro2[np.random.randint(len(intro2))] + intro3[np.random.randint(len(intro3))]
 	re_message = "I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts."
-	return question(intro).reprompt(re_message)
+	return question(intro).reprompt("reprompt")
+	#return question(intro).reprompt(re_message)
 
 @ask.intent("SearchIntent")
 def search_intent(query):
@@ -103,7 +104,8 @@ def search_intent(query):
 	
 @ask.intent("AMAZON.FallbackIntent")
 def no_query():
-	return question("I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts.")
+	return question("fallback")
+	#return question("I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts.")
 	
 @ask.intent('AMAZON.CancelIntent')
 @ask.intent('AMAZON.StopIntent')
