@@ -1,6 +1,6 @@
 import numpy as np
 #%matplotlib notebook
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from flask import Flask
 from flask_ask import Ask, statement, question
@@ -33,7 +33,12 @@ def no_intent():
 @ask.launch
 def start_skill():
     welcome_message = 'Hello there, would you like me to reassure you?'
-    return question(welcome_message)
+    ree = "Sorry I missed that. Would you like me to reassure you?"
+    return question(welcome_message).reprompt(ree)
+
+@ask.intent("AMAZON.FallbackIntent")
+def nope():
+    return question("I'm sorry, I missed that. Would you like me to reassure you?")
 
 if __name__ == '__main__':
     app.run(debug=True)
