@@ -21,7 +21,8 @@ def homepage():
 @ask.launch
 def start():
     original = "Do you want to hear a joke?"
-    return question(original)
+    re = "I didn't catch that. Do you want to hear a joke?"
+    return question(original).reprompt(re)
 
 def normalize(counter):
     """ Converts a letter -> count counter to a list of (letter, 
@@ -135,7 +136,7 @@ def generate_text(lm, n, nletters = 200):
     return "".join(text)
     
 @ask.intent("AMAZON.YesIntent")
-def gen_joke(n):
+def gen_joke():
     with open("lm_jokes.pkl", mode="rb") as f:
         lm_jokes = pickle.load(f)
     
@@ -145,7 +146,11 @@ def gen_joke(n):
     joke = "<speak>" + joke + "</speak>"
 
     return statement(joke)
-            	
+
+@ask.intent("AMAZON.FallbackIntent")
+def no_ans():
+    return question("I'm sorry, but I didn't catch that. Do you want to hear a joke?")            	
+
 @ask.intent('AMAZON.CancelIntent')
 @ask.intent('AMAZON.StopIntent')
 @ask.intent('AMAZON.NoIntent')
