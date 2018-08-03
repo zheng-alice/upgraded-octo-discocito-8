@@ -53,8 +53,7 @@ def record_voice():
 
 	intro = intro1[np.random.randint(len(intro1))] + intro2[np.random.randint(len(intro2))] + intro3[np.random.randint(len(intro3))]
 	re_message = "I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts."
-	return question(intro).reprompt("reprompt")
-	#return question(intro).reprompt(re_message)
+	return question(intro).reprompt(re_message)
 
 @ask.intent("SearchIntent")
 def search_intent(query):
@@ -81,10 +80,10 @@ def search_intent(query):
 			"You seem to be really sad lately. Why don't you talk to me by saying 'Alexa talk to me,' ask for reassurance by saying 'Alexa reassure me,' or meditate with me by saying 'Alexa let's meditate?'",]
 		# kinda sad
 		else: 
-			recs = ["I recommend you meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa play Despacito' to play Despacito, or 'Alexa tell me a random joke' to listen to one of my jokes.",
-			"I think you should meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa play Despacito' to play Despacito, or 'Alexa tell me a random joke' to listen to one of my jokes.",
-			"Try meditating with me by saying 'Alexa let's meditate,' or listening to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa play Despacito' to play Despacito, or 'Alexa tell me a random joke' to listen to one of my jokes.",
-			"Why don't you meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem'? If you want me to cheer you up, you can also say 'Alexa play Despacito' to play Despacito, or 'Alexa tell me a random joke' to listen to one of my jokes."]
+			recs = ["I recommend you meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa Despacito time' to play Despacito, or 'Alexa jokebot' to listen to one of my jokes.",
+			"I think you should meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa Despacito time' to play Despacito, or 'Alexa jokebot' to listen to one of my jokes.",
+			"Try meditating with me by saying 'Alexa let's meditate,' or listening to one of my poems by saying 'Alexa read me a poem.' If you want me to cheer you up, you can also say 'Alexa Despacito time' to play Despacito, or 'Alexa jokebot' to listen to one of my jokes.",
+			"Why don't you meditate with me by saying 'Alexa let's meditate,' or listen to one of my poems by saying 'Alexa read me a poem'? If you want me to cheer you up, you can also say 'Alexa Despacito time' to play Despacito, or 'Alexa jokebot' to listen to one of my jokes."]
 
 		return statement(sad[np.random.randint(len(sad))] + recs[np.random.randint(len(recs))])
 	# happy
@@ -96,16 +95,15 @@ def search_intent(query):
 		"Sounds great! ",
 		"Cool! "]
 
-		recs = ["I think you should listen to a joke by saying 'Alexa tell me a random joke,' a meme by saying 'Alexa tell me a random meme,' or a poem by saying, 'Alexa read me a poem.' I can also compliment you if you say 'Alexa give me a compliment'!",
-		"Try listening to a joke by saying 'Alexa tell me a random joke,' a meme by saying 'Alexa tell me a random meme,' or a poem by saying, 'Alexa read me a poem.' I can also compliment you if you say 'Alexa give me a compliment'!",
-		"Why don't you listen to a joke by saying 'Alexa tell me a random joke,' a meme by saying 'Alexa tell me a random meme,' or a poem by saying, 'Alexa read me a poem'? I can also compliment you if you say 'Alexa give me a compliment'!"]
+		recs = ["I think you should listen to a joke by saying 'Alexa jokebot,' a meme by saying 'Alexa memebot,' or a poem by saying, 'Alexa read me a poem.' I can also compliment you if you say 'Alexa give me a compliment'!",
+		"Try listening to a joke by saying 'Alexa jokebot,' a meme by saying 'Alexa memebot,' or a poem by saying, 'Alexa read me a poem.' I can also compliment you if you say 'Alexa give me a compliment'!",
+		"Why don't you listen to a joke by saying 'Alexa jokebot,' a meme by saying 'Alexa memebot,' or a poem by saying, 'Alexa read me a poem'? I can also compliment you if you say 'Alexa give me a compliment'!"]
 
 		return statement(happy[np.random.randint(len(happy))] + recs[np.random.randint(len(recs))])
 	
 @ask.intent("AMAZON.FallbackIntent")
 def no_query():
-	return question("fallback")
-	#return question("I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts.")
+	return question("I'm sorry, but I didn't understand that. Try again, this time prefacing your statement with my name, Peanuts.")
 	
 @ask.intent('AMAZON.CancelIntent')
 @ask.intent('AMAZON.StopIntent')

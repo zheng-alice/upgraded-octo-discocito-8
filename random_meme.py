@@ -154,9 +154,7 @@ def generate_meme():
     
     with open("sents.pkl", "rb") as f:
         lm = pickle.load(f)
-            
-    pronouns = ["him", "her"]
-    
+                
     jokes = ["*slaps roof of {0}*. \nThis {0} can fit so much {1} {2} in it.".format(rand(nouns), rand(adjs), rand(nouns)),
              "Thank you {} very {}.".format(rand(names), rand(adjs)),
              "This is so {} Alexa play {}.".format(rand(adjs), choose(rand(nouns).capitalize(), rand(adjs).capitalize(), rand(verbs).capitalize(), rand(adjs).capitalize() + ' ' + rand(nouns).capitalize())),
@@ -165,7 +163,7 @@ def generate_meme():
              "{} are now statistically more popular than {}.".format((rand(nouns) + 's').capitalize(), rand(nouns) + 's'),
              "You can't {0} a {1} if you don't {2} a {1}.".format(rand(verbs), rand(nouns), rand(verbs)),
              "Little known fact: \n{} was invented in {} by {} when he tried to {} twice at the same time.".format(choose(rand(verbs).capitalize() + 'ing', rand(nouns).capitalize()), str(np.random.randint(1200, 2019)), rand(names), rand(verbs)),
-             "{} is just {}. \nChange my mind.".format(choose(rand(verbs) + 'ing', rand(nouns)), choose(rand(verbs) + 'ing', rand(nouns), rand(adjs))),
+             "{} is just {}. \nChange my mind.".format(choose((rand(verbs) + 'ing').capitalize(), rand(nouns).capitalize()), choose(rand(verbs) + 'ing', rand(nouns), rand(adjs))),
              "@Google {} \nDad: Why is the FBI here?".format(generate_sentence(lm, 7)),
              "{} {} is the most ambitious crossover event in history.".format(rand(adjs).capitalize(), rand(nouns).capitalize()),
              'When {} said "{}," I felt that.'.format(rand(names), choose(rand(adjs) + ' ' + rand(nouns), rand(nouns) + 's ' + rand(verbs), rand(adjs) + ' ' + rand(nouns) + 's ' + rand(verbs), generate_sentence(lm, 7))),
