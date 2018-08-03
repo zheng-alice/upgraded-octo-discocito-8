@@ -34,7 +34,7 @@ def no_intent():
 def start_skill():
     welcome_message = 'Hello there, would you like me to reassure you?'
     ree = "Sorry I missed that. Would you like me to reassure you?"
-    return question(welcome_message).reprompt(ree)
+    return question(welcome_message)
 
 @ask.intent("AMAZON.FallbackIntent")
 def nope():
