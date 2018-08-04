@@ -14,26 +14,32 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-    card_title = 'DESPACITO BOYS'
-    text = 'Are you ready?'
+    card_title = 'DESPACITO TIME'
+    text = 'Hey there. Are you ready?'
     prompt = 'Are you ready?'
     return question(text).reprompt(prompt).simple_card(card_title, text)
 
 @ask.intent('YesIntent')
 def demo():
-    speech = "You got it bud!"
+    speech = ("You got it bud!",
+        "Let's get this party started",
+        "Let's go amigos!",
+        "Get ready for a good time!",
+        "Awesome, I love this song!",
+        "I'm so excited!",
+        "You got it buddy")
     stream_url = 'https://ia601500.us.archive.org/34/items/DESPACITOBASSBOOSTEDdespacito2/DESPACITO%20-%20BASS%20BOOSTED%20%28despacito%202%29.mp3'
-    return audio(speech).play(stream_url, offset=0)
+    return audio(speech[np.random.randint(0,len(speech))]).play(stream_url, offset=0)
 
 @ask.intent("AMAZON.FallbackIntent")
 def no_query():
-    return statement("Sorry I didn't get that. If you are feeling sad and want to play despacito, then say Alexa despacito")
+    return statement("Sorry I didn't catch that. If you are feeling sad and want to play despacito, then say Alexa despacito")
 
 
 # 'ask audio_skil Play the sax
 @ask.intent('NoIntent')
 def no_intent():
-    bye_text = 'Okay then, youre missing out!'
+    bye_text = 'Well then, youre missing out!'
     return statement(bye_text)
 
 
