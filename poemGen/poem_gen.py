@@ -3,10 +3,10 @@ import numpy as np
 
 with open('happy.dat', 'rb') as f:
     happy_lm = load(f)
-    
+
 with open('sad.dat', 'rb') as f:
     sad_lm = load(f)
-
+    
 def unzip(pairs):
     """
     "unzips" of groups of items into separate lists.
@@ -62,6 +62,7 @@ def generate_text(lm, n, nletters=100):
         str
             Model-generated text.
     """
+    
     history = "~" * (n - 1)
     text = []
     for i in range(nletters):
@@ -71,6 +72,7 @@ def generate_text(lm, n, nletters=100):
     return "".join(text)    
 
 def genHappy(letters = 500, N = 13):
+    
     text = generate_text(happy_lm, N, letters)
     if '.' in text:
         while text[-1] != '.':
@@ -78,6 +80,7 @@ def genHappy(letters = 500, N = 13):
     return text
 
 def genSad(letters = 500, N = 13):
+    
     text = generate_text(sad_lm, N, letters)
     if '.' in text:
         while text[-1] != '.':

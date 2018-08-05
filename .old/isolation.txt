@@ -1,0 +1,7 @@
+This is what happens when you set your mind on a single task and don't ask for help
+
+3 days of pulling hair and gritting teeth could have been avoided by a single call to dlib.get_face_chip()
+3 days completely gone to waste
+
+Ask better questions, don't lose sight of the bigger picture, and don't isolate yourself
+You don't have to go through what I've gone through
